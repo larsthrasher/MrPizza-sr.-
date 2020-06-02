@@ -19,6 +19,9 @@ export function Menu({ setOpenFood }){
             {foods.map(food => (
               <Food
                 img={food.img}
+                onClick={() => {
+                  setOpenFood(food);
+                }}
               >
                 <FoodLabel>
                   <div>{food.name}</div>
