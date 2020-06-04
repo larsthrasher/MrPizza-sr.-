@@ -38,36 +38,59 @@ const OrderItem = styled.div`
   justify-content: space-between;
 `;
 
-export function Order({orders}) {
+export function Order({ orders }) {
+  const subtotal = orders.reduce((total, order) => {
+    return total + getPrice(order);
+  },0);
+  const tax = subtotal * 0.08;
+  const total = subtotal + tax;
+
   return (
-    <OrderStyled>
+  <OrderStyled>
     {orders.length === 0  ? (
-        <OrderContent>
-          Order's looking pretty empty, dude.
-        </OrderContent>
-      ) : (
-        <OrderContent>
+      <OrderContent>
+        Your order's looking pretty empty.
+      </OrderContent>
+    ) : (
+      <OrderContent>
         {" "}
+        <OrderContainer>
+          Your Order:
+        </OrderContainer>{" "}
+        {orders.map(order => (
           <OrderContainer>
-            Your Order:
-          </OrderContainer>{" "}
-          {orders.map(order => (
-            <OrderContainer>
-              <OrderItem>
-                <div>{order.quantity}</div>
-                <div>{order.name}</div>
-                <div />
-                <div>{formatPrice(getPrice(order))}</div>
-              </OrderItem>
-            </OrderContainer>
-          ))}
-        </OrderContent>
-      )}
-        <DialogFooter>
-          <ConfirmButton>
-            Checkout
-          </ConfirmButton>
-        </DialogFooter>
-    </OrderStyled>
+            <OrderItem>
+              <div>{order.quantity}</div>
+              <div>{order.name}</div>
+              <div />
+              <div>{formatPrice(getPrice(order))}</div>
+            </OrderItem>
+          </OrderContainer>
+        ))}
+        <OrderContainer>
+          <OrderItem>
+            <div/>
+            <div>Sub-Total</div>
+            <div>{formatPrice(subtotal)}</div>
+          </OrderItem>
+          <OrderItem>
+            <div/>
+            <div>Tax</div>
+            <div>{formatPrice(tax)}</div>
+          </OrderItem>
+          <OrderItem>
+            <div/>
+            <div>Total</div>
+            <div>{formatPrice(total)}</div>
+          </OrderItem>
+        </OrderContainer>
+      </OrderContent>
+    )}
+    <DialogFooter>
+      <ConfirmButton>
+        Confirm
+      </ConfirmButton>
+    </DialogFooter>
+  </OrderStyled>
   );
 }
