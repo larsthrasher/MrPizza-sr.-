@@ -58,7 +58,7 @@ export const foodItems = [
     price: 1,
     name: 'Soda',
     section: 'Drinks',
-    choices: ['Coke','Sprite','Dr.Pepper']
+    choices: ['Coke','Sprite','Dr. Pepper']
   }
 ];
 
