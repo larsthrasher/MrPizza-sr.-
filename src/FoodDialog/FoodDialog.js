@@ -6,8 +6,8 @@ import { Title } from '../Styles/title';
 import { formatPrice } from '../Data/FoodData';
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
-import { Toppings } from './Toppings';
 import { useToppings } from '../Hooks/useToppings';
+import { Toppings } from './Toppings';
 import { useChoice } from '../Hooks/useChoice';
 import { Choices } from './Choices';
 
@@ -116,6 +116,13 @@ function FoodDialogContainer({
     choice: choiceRadio.value
   };
 
+  function editOrder(){
+    const newOrders = [...orders];
+    newOrders[openFood.index] = order;
+    setOrders(newOrders);
+    close();
+  }
+
   function addToOrder() {
     setOrders([...orders, order]);
     close();
@@ -129,7 +136,7 @@ function FoodDialogContainer({
           <DialogBannerName>{openFood.name} </DialogBannerName>
         </DialogBanner>
         <DialogContent>
-          <QuantityInput quantity={quantity} />
+          <QuantityInput quantity={quantity}/>
           {hasToppings(openFood) && (
             <>
             <h3> Would you like toppings? </h3>
@@ -140,10 +147,11 @@ function FoodDialogContainer({
         </DialogContent>
         <DialogFooter>
           <ConfirmButton
-            onClick={addToOrder}
+            onClick={isEditing ? editOrder : addToOrder}
             disabled={openFood.choices && !choiceRadio.value}
           >
-              Add to order: {formatPrice(getPrice(order))}
+            {isEditing ? `Update order: ` : `Add to order: `}
+            {formatPrice(getPrice(order))}
           </ConfirmButton>
         </DialogFooter>
       </Dialog>

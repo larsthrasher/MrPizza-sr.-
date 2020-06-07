@@ -15,15 +15,15 @@ function App() {
   useTitle({...openFood, ...orders});
 
   return (
-    <>
-      <GlobalStyle/>
-      <FoodDialog {...openFood} {...orders}/>
-      <Navbar />
-      <Order {...orders}/>
-      <Banner/>
-      <Menu {...openFood} />
-    </>
-  );
+      <>
+        <GlobalStyle />
+        <FoodDialog {...openFood} {...orders} />
+        <Navbar />
+        <Order {...orders} {...openFood}/>
+        <Banner />
+        <Menu {...openFood} />
+      </>
+  )
 }
 
 export default App;
