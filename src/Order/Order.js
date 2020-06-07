@@ -71,7 +71,7 @@ export function Order({ orders, setOrders, setOpenFood }) {
   <OrderStyled>
     {orders.length === 0  ? (
       <OrderContent>
-        Your order's looking pretty empty.
+        Order's looking pretty empty, man.
       </OrderContent>
     ) : (
       <OrderContent>
